@@ -23,6 +23,38 @@ VALUES ('Numb', '184', '1'),
        ('Glad to be unhappy', '140', '2'),
        ('Шёл мой солдат', '186', '4');
 
+-- Тестовые данные для проверки корректности работы запроса
+  
+INSERT INTO tracks (title, duration, album_id) 
+VALUES ('my own', 180, 1),
+       ('own my', 180, 1),
+       ('my', 180, 1),
+       ('oh my god', 180, 1),
+       ('myself', 180, 1),
+       ('by myself', 180, 1),
+       ('bemy self', 180, 1),
+       ('myself by', 180, 1),
+       ('by myself by', 180, 1),
+       ('beemy', 180, 1),
+       ('premyne', 180, 1);
+      
+-- Удаление тестовых данных
+      
+DELETE FROM tracks
+ WHERE title IN (
+      'my own',
+      'own my',
+      'my',
+      'oh my god',
+      'myself',
+      'by myself',
+      'bemy self',
+      'myself by',
+      'by myself by',
+      'beemy',
+      'premyne'
+);
+
 INSERT INTO collection (name, release_year)
 VALUES ('Studio collection 2000-2012', '2013-05-06'),
        ('Однажды летом', '2019-09-12'),
