@@ -26,8 +26,14 @@ SELECT name
 
 SELECT title
   FROM tracks
- WHERE title LIKE '%мой%'
-    OR title LIKE '%my%' ;
+ WHERE title ILIKE 'мой %'
+    OR title ILIKE '% мой'
+    OR title ILIKE '% мой %'
+    OR title ILIKE 'мой'
+    OR title ILIKE 'my %'
+    OR title ILIKE '% my'
+    OR title ILIKE '% my %'
+    OR title ILIKE 'my' ;
    
 -- Количество исполнителей в каждом жанре
    
@@ -58,12 +64,13 @@ SELECT a.album_id, a.title AS album_title, AVG(t.duration) AS average_duration
 
 SELECT a.name
   FROM artists AS a 
-       LEFT JOIN artistalbums AS aa 
-       ON a.artist_id = aa.artist_id 
-       LEFT JOIN albums AS al 
-       ON aa.album_id = al.album_id 
-          AND al.release_year = '2020-01-01'
- WHERE al.album_id IS NULL;
+ WHERE a.artist_id NOT IN (
+       SELECT aa.artist_id
+         FROM artistalbums AS aa
+              JOIN albums AS al
+              ON aa.album_id = al.album_id
+        WHERE EXTRACT(YEAR FROM al.release_year) = 2020
+);
 
 -- Названия сборников, в которых присутствует конкретный исполнитель
 
